@@ -18,12 +18,14 @@
  */ 
 
 #include "GeneticCode.hh"
+#include <cstring>
 
-char GeneticCode::int_to_amino_acid_[64];
+char GeneticCode::int_to_amino_acid_[256];
 
 GeneticCode::initializer GeneticCode::init;
 GeneticCode::initializer::initializer()
 {
+	std::memset(int_to_amino_acid_, AminoAcid::UNKNOWN, sizeof(int_to_amino_acid_));
 	int_to_amino_acid_[codon_to_int("TTT")] = AminoAcid::PHENYLALANINE;
 	int_to_amino_acid_[codon_to_int("TTC")] = AminoAcid::PHENYLALANINE;
 	int_to_amino_acid_[codon_to_int("TTA")] = AminoAcid::LEUCINE;

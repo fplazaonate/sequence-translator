@@ -26,7 +26,7 @@ const std::uint8_t NucleicAcid::C = 1;
 const std::uint8_t NucleicAcid::G = 2;
 const std::uint8_t NucleicAcid::T = 3;
 const std::uint8_t NucleicAcid::U = 3;
-const std::uint8_t NucleicAcid::UNKNOWN = 4;
+const std::uint8_t NucleicAcid::UNKNOWN = std::numeric_limits<std::uint8_t>::max();
 
 
 std::uint8_t NucleicAcid::to_int_[256];

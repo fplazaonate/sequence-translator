@@ -30,7 +30,7 @@ class GeneticCode
 
 	private:
 		static std::uint8_t codon_to_int(const char* codon);
-		static char int_to_amino_acid_[64];
+		static char int_to_amino_acid_[256];
 
 		static class initializer 
 		{
