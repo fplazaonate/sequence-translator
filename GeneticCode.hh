@@ -1,0 +1,58 @@
+#ifndef GENETIC_CODE_HH
+#define GENETIC_CODE_HH
+
+/*
+ * (C) Copyright 2014 Enterome
+ * 
+ * This file is part of sequence-translator.
+ * 
+ * sequence-translator is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * sequence-translator is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with sequence-translator.  If not, see <http://www.gnu.org/licenses/>.
+ */ 
+
+#include "AminoAcid.hh"
+#include "NucleicAcid.hh"
+
+class GeneticCode
+{
+	public:
+		static char translate_codon(const char* codon);
+
+	private:
+		static std::uint8_t codon_to_int(const char* codon);
+		static char int_to_amino_acid_[64];
+
+		static class initializer 
+		{
+			public:
+				initializer();
+		} init;
+
+};
+
+
+inline char GeneticCode::translate_codon(const char* codon)
+{
+	return int_to_amino_acid_[codon_to_int(codon)];
+}
+
+inline std::uint8_t GeneticCode::codon_to_int(const char* codon)
+{
+
+	return
+	   	NucleicAcid::to_int(codon[0]) << 4 |
+		NucleicAcid::to_int(codon[1]) << 2 |
+		NucleicAcid::to_int(codon[2]);
+}
+
+#endif
