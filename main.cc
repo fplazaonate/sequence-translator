@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
 	{
 		const Parameters& parameters = get_parameters(argc, argv);
 
+		std::unique_ptr<SequenceTranslator> sequence_translator =
+			SequenceTranslatorFactory::create_translator(parameters.reading_frame, parameters.strand);
 		FastaParser fasta_parser(parameters.input_file);
 		FastaWriter fasta_writer(parameters.output_file);
 
@@ -37,7 +39,7 @@ int main(int argc, char *argv[])
 		std::cout << "Done\n" << std::endl;
 
 		std::cout << "Translating to FASTA amino acid..." << std::endl;
-		SequenceTranslator::translate(records);
+		sequence_translator->translate(records);
 		std::cout << "Done\n" << std::endl;
 
 		std::cout << "Writing FASTA amino acid file..." << std::endl;

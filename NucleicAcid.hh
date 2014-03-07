@@ -33,9 +33,11 @@ class NucleicAcid
 		static const std::uint8_t UNKNOWN;
 
 		static std::uint8_t to_int(char c);
+		static std::uint8_t rev_comp_to_int(char c);
 
 	private:
 		static std::uint8_t to_int_[256];
+		static std::uint8_t rev_comp_to_int_[256];
 
 		static class initializer 
 		{
@@ -48,6 +50,11 @@ class NucleicAcid
 inline std::uint8_t NucleicAcid::to_int(char c)
 {
 	return to_int_[(std::uint8_t)c];
+}
+
+inline std::uint8_t NucleicAcid::rev_comp_to_int(char c)
+{
+	return rev_comp_to_int_[(std::uint8_t)c];
 }
 
 #endif

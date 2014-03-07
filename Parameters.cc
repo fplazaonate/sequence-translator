@@ -36,8 +36,10 @@ Parameters get_parameters(int argc, char* argv[])
 
 	opts_desc.add_options()
 		("help,h", "print this help message")
-		("input-file,i", po::value<std::string>(&pars.input_file)->required(), "FASTA nucleotide file to convert.")
-		("output-file,o", po::value<std::string>(&pars.output_file)->required(), "FASTA amino acid file generated.")
+		("input-file,i", po::value<std::string>(&pars.input_file)->required(), "FASTA nucleotide file to convert")
+		("output-file,o", po::value<std::string>(&pars.output_file)->required(), "FASTA amino acid file generated")
+		("reading-frame", po::value<unsigned>(&pars.reading_frame)->default_value(1), "1, 2 or 3")
+		("strand", po::value<std::string>(&pars.strand)->default_value("direct"), "\"direct\" or \"reverse\"")
 		;
 
 	// Retrieve and parse command line parameters

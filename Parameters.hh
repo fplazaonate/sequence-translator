@@ -27,6 +27,8 @@ struct Parameters
 {
 	std::string input_file;
 	std::string output_file;
+	unsigned reading_frame;
+	std::string strand;
 };
 
 Parameters get_parameters(int argc, char* argv[]);

@@ -30,6 +30,7 @@ const std::uint8_t NucleicAcid::UNKNOWN = std::numeric_limits<std::uint8_t>::max
 
 
 std::uint8_t NucleicAcid::to_int_[256];
+std::uint8_t NucleicAcid::rev_comp_to_int_[256];
 
 NucleicAcid::initializer NucleicAcid::init;
 NucleicAcid::initializer::initializer()
@@ -40,4 +41,12 @@ NucleicAcid::initializer::initializer()
 	to_int_['G'] = to_int_['g'] = NucleicAcid::G;
 	to_int_['T'] = to_int_['t'] = NucleicAcid::T;
 	to_int_['U'] = to_int_['u'] = NucleicAcid::U;
+
+	std::memset(NucleicAcid::rev_comp_to_int_, NucleicAcid::UNKNOWN, sizeof(rev_comp_to_int_));
+	rev_comp_to_int_['A'] = rev_comp_to_int_['a'] = NucleicAcid::T;
+	rev_comp_to_int_['C'] = rev_comp_to_int_['c'] = NucleicAcid::G;
+	rev_comp_to_int_['G'] = rev_comp_to_int_['g'] = NucleicAcid::C;
+	rev_comp_to_int_['T'] = rev_comp_to_int_['t'] = NucleicAcid::A;
+	rev_comp_to_int_['U'] = rev_comp_to_int_['u'] = NucleicAcid::A;
+
 };

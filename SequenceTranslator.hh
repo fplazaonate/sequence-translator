@@ -21,12 +21,62 @@
  */ 
 
 #include <vector>
+#include <memory>
+#include <string>
 #include "FastaRecord.hh"
 
 class SequenceTranslator
 {
+	protected:
+		unsigned reading_offset_;
+		SequenceTranslator(unsigned reading_frame);
 	public:
-		static void translate(std::vector<FastaRecord>& records);
+		virtual void translate(std::vector<FastaRecord>& records) = 0;
+		virtual ~SequenceTranslator();
 };
+
+inline SequenceTranslator::SequenceTranslator(unsigned reading_frame)
+	: reading_offset_(reading_frame-1)
+{};
+
+inline SequenceTranslator::~SequenceTranslator()
+{};
+
+class DirectStrandTranslator : public SequenceTranslator
+{
+	friend class SequenceTranslatorFactory;
+	private:
+		DirectStrandTranslator(unsigned reading_frame);
+
+	public:
+		virtual void translate(std::vector<FastaRecord>& records);
+};
+
+inline DirectStrandTranslator::DirectStrandTranslator(unsigned reading_frame)
+	: SequenceTranslator(reading_frame)
+{};
+
+class ReverseStandTranslator : public SequenceTranslator
+{
+	friend class SequenceTranslatorFactory;
+	private:
+		ReverseStandTranslator(unsigned reading_frame);
+
+	public:
+		virtual void translate(std::vector<FastaRecord>& records);
+
+};
+
+
+inline ReverseStandTranslator::ReverseStandTranslator(unsigned reading_frame)
+	: SequenceTranslator(reading_frame)
+{};
+
+class SequenceTranslatorFactory
+{
+	public:
+		static std::unique_ptr<SequenceTranslator> create_translator(unsigned reading_frame, const std::string& strand);
+};
+
 
 #endif

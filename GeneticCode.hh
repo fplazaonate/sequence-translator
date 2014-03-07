@@ -27,9 +27,11 @@ class GeneticCode
 {
 	public:
 		static char translate_codon(const char* codon);
+		static char translate_rev_comp_codon(const char* codon);
 
 	private:
 		static std::uint8_t codon_to_int(const char* codon);
+		static std::uint8_t rev_comp_codon_to_int(const char* codon);
 		static char int_to_amino_acid_[256];
 
 		static class initializer 
@@ -46,6 +48,11 @@ inline char GeneticCode::translate_codon(const char* codon)
 	return int_to_amino_acid_[codon_to_int(codon)];
 }
 
+inline char GeneticCode::translate_rev_comp_codon(const char* codon)
+{
+	return int_to_amino_acid_[rev_comp_codon_to_int(codon)];
+}
+
 inline std::uint8_t GeneticCode::codon_to_int(const char* codon)
 {
 
@@ -53,6 +60,15 @@ inline std::uint8_t GeneticCode::codon_to_int(const char* codon)
 	   	NucleicAcid::to_int(codon[0]) << 4 |
 		NucleicAcid::to_int(codon[1]) << 2 |
 		NucleicAcid::to_int(codon[2]);
+}
+
+inline std::uint8_t GeneticCode::rev_comp_codon_to_int(const char* codon)
+{
+
+	return
+	   	NucleicAcid::rev_comp_to_int(codon[2]) << 4 |
+		NucleicAcid::rev_comp_to_int(codon[1]) << 2 |
+		NucleicAcid::rev_comp_to_int(codon[0]);
 }
 
 #endif

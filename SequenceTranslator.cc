@@ -19,23 +19,67 @@
 
 #include "SequenceTranslator.hh"
 #include "GeneticCode.hh"
+#include <iostream>
+#include <stdexcept>
 
-void SequenceTranslator::translate(std::vector<FastaRecord>& records)
+void DirectStrandTranslator::translate(std::vector<FastaRecord>& records)
 {
 	for (FastaRecord& record: records)
 	{
 		std::string& sequence = record.sequence;
-		const unsigned num_codons = sequence.size()/3;
 
-		for (unsigned i = 0; i < num_codons; i++)
+		const int num_codons = 
+			static_cast<int>(sequence.size()-reading_offset_)/3;
+
+		for (int curr_codon = 0, curr_nucl = reading_offset_;
+				curr_codon < num_codons;
+				curr_codon++,curr_nucl+=3)
 		{
-			// This is evil to retrieve a pointer on a string in this way
-			// but it works in practice
-			sequence[i] = 
-				GeneticCode::translate_codon(&sequence[i*3]);
+			sequence[curr_codon] = 
+				GeneticCode::translate_codon(&sequence[curr_nucl]);
 		}
 
 		sequence.resize(num_codons);
 	}
 
+}
+
+void ReverseStandTranslator::translate(std::vector<FastaRecord>& records)
+{
+	for (FastaRecord& record: records)
+	{
+		std::string& sequence = record.sequence;
+		const std::string sequence_copy = record.sequence;
+
+		const int num_codons = 
+			static_cast<int>(sequence.size()-reading_offset_)/3;
+
+		for (int curr_codon = 0, curr_nucl = sequence.size()-3-reading_offset_;
+				curr_codon < num_codons;
+				curr_codon++,curr_nucl-=3)
+		{
+			sequence[curr_codon] = 
+				GeneticCode::translate_rev_comp_codon(&sequence_copy[curr_nucl]);
+		}
+
+		sequence.resize(num_codons);
+	}
+
+}
+
+std::unique_ptr<SequenceTranslator> SequenceTranslatorFactory::create_translator(unsigned reading_frame, const std::string& strand)
+{
+	if (reading_frame < 1 || reading_frame > 3)
+		throw (std::invalid_argument("error: reading frame must be between 1 and 3."));
+
+	if (strand == "direct")
+	{
+		return std::unique_ptr<SequenceTranslator>(new DirectStrandTranslator(reading_frame));
+	}
+	else if (strand == "reverse")
+	{
+		return std::unique_ptr<SequenceTranslator>(new ReverseStandTranslator(reading_frame));
+	}
+
+	throw (std::invalid_argument("error: " + strand + " is not a valid strand."));
 }
