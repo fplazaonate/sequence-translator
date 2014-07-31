@@ -13,7 +13,7 @@ OBJECTS = $(patsubst %.cc, %.o, $(SRC))
 all: $(EXEC)
 
 $(EXEC): $(OBJECTS)
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 %.o: %.cc
 	$(CC) $(CFLAGS) -c $< -o $@
