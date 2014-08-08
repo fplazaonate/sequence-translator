@@ -57,11 +57,11 @@ Parameters get_parameters(int argc, char* argv[])
 
 	// Check input file
 	std::ifstream ifs;
-	ifs.open(pars.output_file.c_str());
+	ifs.open(pars.input_file.c_str());
 
 	if (ifs.fail())
 	{
-		throw (std::invalid_argument("error: " + pars.output_file + 
+		throw (std::invalid_argument("error: " + pars.input_file + 
 					" cannot be opened. Check that the path is valid and that you have read permissions."));
 	}
 
