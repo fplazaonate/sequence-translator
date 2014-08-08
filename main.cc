@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 	{
 		const Parameters& parameters = get_parameters(argc, argv);
 
-		std::unique_ptr<SequenceTranslator> sequence_translator =
+		std::auto_ptr<SequenceTranslator> sequence_translator =
 			SequenceTranslatorFactory::create_translator(parameters.reading_frame, parameters.strand);
 		FastaParser fasta_parser(parameters.input_file);
 		FastaWriter fasta_writer(parameters.output_file);

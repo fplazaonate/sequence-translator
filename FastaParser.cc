@@ -24,7 +24,7 @@
 std::vector<FastaRecord> FastaParser::parse_file()
 {
 	std::ifstream ifs;
-	ifs.open(file_);
+	ifs.open(file_.c_str());
 	
 	std::istream_iterator<FastaRecord> is_it(ifs), eos;
 

@@ -75,7 +75,7 @@ inline ReverseStandTranslator::ReverseStandTranslator(unsigned reading_frame)
 class SequenceTranslatorFactory
 {
 	public:
-		static std::unique_ptr<SequenceTranslator> create_translator(unsigned reading_frame, const std::string& strand);
+		static std::auto_ptr<SequenceTranslator> create_translator(unsigned reading_frame, const std::string& strand);
 };
 
 

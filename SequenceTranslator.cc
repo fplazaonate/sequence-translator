@@ -24,9 +24,9 @@
 
 void DirectStrandTranslator::translate(std::vector<FastaRecord>& records)
 {
-	for (FastaRecord& record: records)
+	for (size_t i = 0; i < records.size(); i++)
 	{
-		std::string& sequence = record.sequence;
+		std::string& sequence = records[i].sequence;
 
 		const int num_codons = 
 			static_cast<int>(sequence.size()-reading_offset_)/3;
@@ -46,10 +46,10 @@ void DirectStrandTranslator::translate(std::vector<FastaRecord>& records)
 
 void ReverseStandTranslator::translate(std::vector<FastaRecord>& records)
 {
-	for (FastaRecord& record: records)
+	for (size_t i = 0; i < records.size(); i++)
 	{
-		std::string& sequence = record.sequence;
-		const std::string sequence_copy = record.sequence;
+		std::string& sequence = records[i].sequence;
+		const std::string sequence_copy = records[i].sequence;
 
 		const int num_codons = 
 			static_cast<int>(sequence.size()-reading_offset_)/3;
@@ -67,18 +67,18 @@ void ReverseStandTranslator::translate(std::vector<FastaRecord>& records)
 
 }
 
-std::unique_ptr<SequenceTranslator> SequenceTranslatorFactory::create_translator(unsigned reading_frame, const std::string& strand)
+std::auto_ptr<SequenceTranslator> SequenceTranslatorFactory::create_translator(unsigned reading_frame, const std::string& strand)
 {
 	if (reading_frame < 1 || reading_frame > 3)
 		throw (std::invalid_argument("error: reading frame must be between 1 and 3."));
 
 	if (strand == "direct")
 	{
-		return std::unique_ptr<SequenceTranslator>(new DirectStrandTranslator(reading_frame));
+		return std::auto_ptr<SequenceTranslator>(new DirectStrandTranslator(reading_frame));
 	}
 	else if (strand == "reverse")
 	{
-		return std::unique_ptr<SequenceTranslator>(new ReverseStandTranslator(reading_frame));
+		return std::auto_ptr<SequenceTranslator>(new ReverseStandTranslator(reading_frame));
 	}
 
 	throw (std::invalid_argument("error: " + strand + " is not a valid strand."));

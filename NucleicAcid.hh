@@ -20,24 +20,24 @@
  * along with sequence-translator.  If not, see <http://www.gnu.org/licenses/>.
  */ 
 
-#include <cstdint>
+#include <stdint.h>
 
 class NucleicAcid
 {
 	public:
-		static const std::uint8_t A;
-		static const std::uint8_t C;
-		static const std::uint8_t G;
-		static const std::uint8_t T;
-		static const std::uint8_t U;
-		static const std::uint8_t UNKNOWN;
+		static const uint8_t A;
+		static const uint8_t C;
+		static const uint8_t G;
+		static const uint8_t T;
+		static const uint8_t U;
+		static const uint8_t UNKNOWN;
 
-		static std::uint8_t to_int(char c);
-		static std::uint8_t rev_comp_to_int(char c);
+		static uint8_t to_int(char c);
+		static uint8_t rev_comp_to_int(char c);
 
 	private:
-		static std::uint8_t to_int_[256];
-		static std::uint8_t rev_comp_to_int_[256];
+		static uint8_t to_int_[256];
+		static uint8_t rev_comp_to_int_[256];
 
 		static class initializer 
 		{
@@ -47,14 +47,14 @@ class NucleicAcid
 
 };
 
-inline std::uint8_t NucleicAcid::to_int(char c)
+inline uint8_t NucleicAcid::to_int(char c)
 {
-	return to_int_[(std::uint8_t)c];
+	return to_int_[(uint8_t)c];
 }
 
-inline std::uint8_t NucleicAcid::rev_comp_to_int(char c)
+inline uint8_t NucleicAcid::rev_comp_to_int(char c)
 {
-	return rev_comp_to_int_[(std::uint8_t)c];
+	return rev_comp_to_int_[(uint8_t)c];
 }
 
 #endif

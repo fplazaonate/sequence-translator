@@ -22,10 +22,10 @@
 
 void FastaWriter::write(const std::vector<FastaRecord>& records)
 {
-	std::ofstream ofs(output_file_);
+	std::ofstream ofs(output_file_.c_str());
 
-	for (const FastaRecord& record: records)
-		ofs << record;
+	for (size_t i = 0; i < records.size(); i++)
+		ofs << records[i];
 
 	ofs.close();
 }

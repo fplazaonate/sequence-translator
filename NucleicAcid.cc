@@ -21,16 +21,16 @@
 #include <limits>
 #include <cstring>
 
-const std::uint8_t NucleicAcid::A = 0;
-const std::uint8_t NucleicAcid::C = 1;
-const std::uint8_t NucleicAcid::G = 2;
-const std::uint8_t NucleicAcid::T = 3;
-const std::uint8_t NucleicAcid::U = 3;
-const std::uint8_t NucleicAcid::UNKNOWN = std::numeric_limits<std::uint8_t>::max();
+const uint8_t NucleicAcid::A = 0;
+const uint8_t NucleicAcid::C = 1;
+const uint8_t NucleicAcid::G = 2;
+const uint8_t NucleicAcid::T = 3;
+const uint8_t NucleicAcid::U = 3;
+const uint8_t NucleicAcid::UNKNOWN = std::numeric_limits<uint8_t>::max();
 
 
-std::uint8_t NucleicAcid::to_int_[256];
-std::uint8_t NucleicAcid::rev_comp_to_int_[256];
+uint8_t NucleicAcid::to_int_[256];
+uint8_t NucleicAcid::rev_comp_to_int_[256];
 
 NucleicAcid::initializer NucleicAcid::init;
 NucleicAcid::initializer::initializer()
