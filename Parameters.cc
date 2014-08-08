@@ -56,15 +56,19 @@ Parameters get_parameters(int argc, char* argv[])
 	po::notify(vm);
 
 	// Check input file
-	if (!fs::exists(pars.input_file))
-		throw (std::invalid_argument("error: " + pars.input_file +  " not found."));
+	std::ifstream ifs;
+	ifs.open(pars.output_file.c_str());
 
-	if (!fs::is_regular_file(pars.input_file))
-		throw (std::invalid_argument("error: " + pars.input_file +  " is not a regular file."));
+	if (ifs.fail())
+	{
+		throw (std::invalid_argument("error: " + pars.output_file + 
+					" cannot be opened. Check that the path is valid and that you have read permissions."));
+	}
+
+	ifs.close();
 
 
 	// Check output file
-
 	std::ofstream ofs;
 	ofs.open(pars.output_file.c_str());
 
