@@ -17,6 +17,7 @@
  * along with sequence-translator.  If not, see <http://www.gnu.org/licenses/>.
  */ 
 
+#include "TimeProfiler.hh"
 #include "Parameters.hh"
 #include "FastaParser.hh"
 #include "SequenceTranslator.hh"
@@ -27,6 +28,9 @@ int main(int argc, char *argv[])
 {
 	try
 	{
+		TimeProfiler time_profiler;
+		time_profiler.start_new_timer("Total");
+
 		const Parameters& parameters = get_parameters(argc, argv);
 
 		std::auto_ptr<SequenceTranslator> sequence_translator =
@@ -35,16 +39,25 @@ int main(int argc, char *argv[])
 		FastaWriter fasta_writer(parameters.output_file);
 
 		std::cout << "Reading FASTA nucleotide file..." << std::endl;
+		time_profiler.start_new_timer("Reading FASTA nucleotide file");
 		std::vector<FastaRecord> records = fasta_parser.parse_file();
+		time_profiler.stop_last_timer();
 		std::cout << "Done\n" << std::endl;
 
 		std::cout << "Translating to FASTA amino acid..." << std::endl;
+		time_profiler.start_new_timer("Translating to FASTA amino acid");
 		sequence_translator->translate(records);
+		time_profiler.stop_last_timer();
 		std::cout << "Done\n" << std::endl;
 
 		std::cout << "Writing FASTA amino acid file..." << std::endl;
+		time_profiler.start_new_timer("Writing FASTA amino acid file");
 		fasta_writer.write(records);
-		std::cout << "Done" << std::endl;
+		time_profiler.stop_last_timer();
+		std::cout << "Done\n" << std::endl;
+
+		time_profiler.stop_last_timer();
+		std::cout << time_profiler << std::endl;
 	}
 	catch(const std::exception& e)
 	{
