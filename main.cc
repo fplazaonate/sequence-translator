@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 		time_profiler.start_new_timer("Reading FASTA nucleotide file");
 		std::vector<FastaRecord> records = fasta_parser.parse_file();
 		time_profiler.stop_last_timer();
-		std::cout << "Done\n" << std::endl;
+		std::cout << "Done. FASTA file has " << records.size() << " entries.\n" << std::endl;
 
 		std::cout << "Translating to FASTA amino acid..." << std::endl;
 		time_profiler.start_new_timer("Translating to FASTA amino acid");
