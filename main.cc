@@ -23,6 +23,7 @@
 #include "SequenceTranslator.hh"
 #include "FastaWriter.hh"
 #include <iostream>
+#include <cstdlib>
 
 int main(int argc, char *argv[])
 {
@@ -58,13 +59,12 @@ int main(int argc, char *argv[])
 
 		time_profiler.stop_last_timer();
 		std::cout << time_profiler << std::endl;
+
+		std::exit(0);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << std::endl;
-		return -1;
+		std::exit(-1);
 	}
-
-
-	return 0;
 }
