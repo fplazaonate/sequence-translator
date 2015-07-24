@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Enterome
+ * Copyright 2014-2015 Enterome
  *
  * This file is part of count-matrix-normalizer
  *

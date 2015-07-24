@@ -2,7 +2,7 @@
 #define GENETIC_CODE_HH
 
 /*
- * (C) Copyright 2014 Enterome
+ * (C) Copyright 2014-2015 Enterome
  * 
  * This file is part of sequence-translator.
  * 
