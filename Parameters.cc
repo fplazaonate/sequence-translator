@@ -31,9 +31,8 @@ Parameters get_parameters(int argc, char* argv[])
 	Parameters pars;
 	
 	// Create options decription
-	po::options_description opts_desc("Convert csfasta file to fasta file and vice versa.");
+	po::options_description opts_desc("Translate DNA or RNA sequences to protein sequences by using the \"standard\" genetic code.\nAvailable options");
 		
-
 	opts_desc.add_options()
 		("help,h", "print this help message")
 		("input-file,i", po::value<std::string>(&pars.input_file), "FASTA nucleotide file to convert")
