@@ -36,15 +36,8 @@ class NucleicAcid
 		static uint8_t rev_comp_to_int(char c);
 
 	private:
-		static uint8_t to_int_[256];
-		static uint8_t rev_comp_to_int_[256];
-
-		static class initializer 
-		{
-			public:
-				initializer();
-		} init;
-
+		static const uint8_t to_int_[256];
+		static const uint8_t rev_comp_to_int_[256];
 };
 
 inline uint8_t NucleicAcid::to_int(char c)
