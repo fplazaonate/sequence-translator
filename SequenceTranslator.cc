@@ -40,6 +40,11 @@ void DirectStrandTranslator::translate(std::vector<FastaRecord>& records)
 		}
 
 		sequence.resize(num_codons);
+
+        if (num_codons > 0 && sequence[num_codons-1] == AminoAcid::STOP)
+        {
+            sequence.resize(num_codons-1);
+        }
 	}
 
 }
@@ -63,6 +68,11 @@ void ReverseStandTranslator::translate(std::vector<FastaRecord>& records)
 		}
 
 		sequence.resize(num_codons);
+
+        if (num_codons > 0 && sequence[num_codons-1] == AminoAcid::STOP)
+        {
+            sequence.resize(num_codons-1);
+        }
 	}
 
 }
